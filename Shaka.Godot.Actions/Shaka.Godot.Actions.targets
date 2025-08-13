@@ -1,0 +1,5 @@
+<Project>
+ <ItemGroup>
+  <AdditionalFiles Include="./project.godot" />
+ </ItemGroup>
+</Project>

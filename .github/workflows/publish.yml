@@ -1,0 +1,53 @@
+name: Publish
+
+on:
+  workflow_dispatch:
+    inputs:
+      increment:
+        description: "Increment type"
+        required: true
+        default: patch
+        type: choice
+        options:
+          - patch
+          - minor
+          - major
+
+jobs:
+  publish:
+    name: Build & Test & Publish
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: 9.0.x
+
+      - name: Restore
+        working-directory: Shaka.Godot.Actions
+        run: dotnet restore
+      - name: Build
+        working-directory: Shaka.Godot.Actions
+        run: dotnet build -c Release --no-restore
+
+      - name: Get Next Version
+        uses: reecetech/version-increment@2024.10.1
+        id: version
+        with:
+          scheme: semver
+          increment: ${{ inputs.increment }}
+
+      - name: Pack
+        working-directory: Shaka.Godot.Actions
+        run: dotnet pack -c Release --no-build -p:PackageVersion=${{ steps.version.outputs.version }}
+      - name: Nuget Publish
+        working-directory: Shaka.Godot.Actions/bin/Release
+        run: dotnet nuget push Shaka.Godot.Actions.${{ steps.version.outputs.version }}.nupkg -k ${{ secrets.API_KEY_NUGET }} -s https://api.nuget.org/v3/index.json
+
+      - name: Tag
+        run: git tag ${{ steps.version.outputs.v-version }}
+      - name: Push Tag
+        run: git push origin ${{ steps.version.outputs.v-version }}
+
