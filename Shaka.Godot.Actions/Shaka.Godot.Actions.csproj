@@ -38,4 +38,8 @@
   <None Include="Shaka.Godot.Actions.props" Pack="true" PackagePath="build" Visible="false"/>
   <None Include="Shaka.Godot.Actions.targets" Pack="true" PackagePath="build" />
  </ItemGroup>
+ <ItemGroup>
+  <Compile Remove="StaticSources\Actions.Builtin.cs" />
+  <EmbeddedResource Include="StaticSources\Actions.Builtin.cs" />
+ </ItemGroup>
 </Project>
