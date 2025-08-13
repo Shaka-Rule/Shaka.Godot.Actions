@@ -1,0 +1,44 @@
+<Project Sdk="Microsoft.NET.Sdk">
+ <PropertyGroup>
+  <TargetFramework>netstandard2.1</TargetFramework>
+  <LangVersion>latest</LangVersion>
+  <Nullable>enable</Nullable>
+  <IsPackable>true</IsPackable>
+  <EnforceExtendedAnalyzerRules>true</EnforceExtendedAnalyzerRules>
+  <IsRoslynComponent>true</IsRoslynComponent>
+  <RootNamespace>Shaka.Godot.Actions</RootNamespace>
+ </PropertyGroup>
+ <PropertyGroup>
+  <PackageId>Shaka.Godot.Actions</PackageId>
+  <Title>Godot Actions SourceGenerator</Title>
+  <Authors>Shaka</Authors>
+  <Description>Source generator which adds input actions as constant strings</Description>
+  <PackageIcon>GodotIcon.png</PackageIcon>
+  <RepositoryUrl>https://github.com/Shaka-Rule/Shaka.Godot.Actions</RepositoryUrl>
+  <PackageTags>Godot, SourceGenerator, Addon</PackageTags>
+  <PackageRequireLicenseAcceptance>false</PackageRequireLicenseAcceptance>
+  <Copyright>ShakaRule 2025</Copyright>
+  <PackageProjectUrl>https://github.com/Shaka-Rule/Shaka.Godot.Actions</PackageProjectUrl>
+  <PackageLicenseFile>LICENSE</PackageLicenseFile>
+  <PackageReadmeFile>README.md</PackageReadmeFile>
+ </PropertyGroup>
+ <ItemGroup>
+  <PackageReference Include="Microsoft.CodeAnalysis.Analyzers" Version="3.3.4">
+   <PrivateAssets>all</PrivateAssets>
+   <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+  </PackageReference>
+  <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="4.11.0"/>
+  <PackageReference Include="Microsoft.CodeAnalysis.CSharp.Workspaces" Version="4.11.0"/>
+ </ItemGroup>
+ <ItemGroup>
+  <None Include="../README.md" Pack="true" PackagePath="\"/>
+  <None Include="../LICENSE" Pack="true" PackagePath="\"/>
+  <None Include="$(OutputPath)\$(AssemblyName).dll" Pack="true" PackagePath="analyzers/dotnet/cs" Visible="false" />
+ </ItemGroup>
+ <ItemGroup>
+  <None Update="GodotIcon.png">
+   <Pack>True</Pack>
+   <PackagePath></PackagePath>
+  </None>
+ </ItemGroup>
+</Project>
