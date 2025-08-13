@@ -81,10 +81,9 @@ public sealed class ActionsGenerator : IIncrementalGenerator
 
 	private static string GenerateBuiltinActionsClass(string? @namespace)
 	{
-		string builtinsSource = ReadEmbeddedResource($"{nameof(ActionsGenerator)}.StaticFiles.Actions.Builtin.cs");
+		string builtinsSource = ReadEmbeddedResource($"StaticSources.Actions.Builtin.cs");
 		return GenerateActionsClass(@namespace, builtinsSource);
 	}
-
 	private static string GenerateActionsClass(string? @namespace, string actions)
 	{
 		var namespaceStatement = @namespace is not null ? $"namespace {@namespace};" : string.Empty;

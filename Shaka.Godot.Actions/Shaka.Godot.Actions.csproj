@@ -40,6 +40,8 @@
  </ItemGroup>
  <ItemGroup>
   <Compile Remove="StaticSources\Actions.Builtin.cs" />
-  <EmbeddedResource Include="StaticSources\Actions.Builtin.cs" />
+  <EmbeddedResource Include="StaticSources\Actions.Builtin.cs">
+   <LogicalName>StaticSources.Actions.Builtin.cs</LogicalName>
+  </EmbeddedResource>
  </ItemGroup>
 </Project>
