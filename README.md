@@ -1,13 +1,14 @@
-# Shaka.Godot.OnReady
+# 🎯 Shaka.Godot.OnReady
 
-Source generator for Godot 4 .NET version which adds input actions as constant strings to your game project.
+A **C# Source Generator** for **Godot 4 .NET** that automatically turns your input actions into **compile-time safe constant strings**.  
 
-It will allow you to get lsp suggestions when using input actions in code.
+✨ **Benefits**:
+- 🖱 **IDE Autocompletion** for input actions.
+- 🔒 **Compile-time safety**: Your project won’t build if you rename actions in Godot but forget to update them in code.
+- ⚡ **No runtime reflection** — all generated at build time.
 
-The project will not compile if an input action name is changed without changing it in code.
-
-The generated code looks like this:
-```cs
+Example of generated code:
+```csharp
 namespace MyGame;
 
 internal static partial class Actions
@@ -16,66 +17,109 @@ internal static partial class Actions
 }
 ```
 
-# Installation
-## Add it to your godot project.
-Since it's a source generator we need to add `PrivateAssets` and the `IncludeAssets` properties.
+---
+
+## 🚀 Features
+
+- 🛡 **Compile-time safety** for all input actions.
+- 📜 **Clean, readable generated code**.
+- 🔍 **LSP/IDE autocompletion** in C# editors.
+- 🧩 **Supports both custom and built-in Godot actions**.
+- 🔧 **Configurable namespace support**.
+- 📂 **Automatically reads `project.godot`** to generate constants.
+
+---
+
+## 📦 Installation
+
+Add it to your Godot project via NuGet.  
+Since this is a source generator, make sure to include the `PrivateAssets` and `IncludeAssets` properties:
+
 ```xml
 <PackageReference Include="Shaka.Godot.Actions" Version="x.x.x">
    <PrivateAssets>all</PrivateAssets>
    <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
 </PackageReference>
 ```
-Refer to the [nuget package page](https://www.nuget.org/packages/Shaka.Godot.Actions/) for available versions.
 
-It will automatically read your `project.godot` and add the actions to a globally available static class.
+🔗 **Check the [NuGet package page](https://www.nuget.org/packages/Shaka.Godot.Actions/)** for the latest version.
 
-# Usage
+The generator will automatically read your `project.godot` file and generate a globally available static `Actions` class.
 
-## Custom action
-I added a custom action `quit` to my godot project.
-A const string will be available at `MyGame.Actions.Quit`
-(`MyGame` being your root namespace or custom defined namespace)
-```cs
+---
+
+## 🕹 Usage
+
+### 🎯 Custom Actions
+If you define a custom action in Godot (e.g., `quit`), you can access it with `MyGame.Actions.Quit`:
+
+```csharp
 public override void _Input(InputEvent @event)
 {
-  if (@event.IsActionPressed(MyGame.Actions.Quit))
-  {
-    Quit();
-  }
+    if (@event.IsActionPressed(MyGame.Actions.Quit))
+    {
+        Quit();
+    }
 }
 ```
 
-## Default Godot action
-Godot adds multiple standard input actions which are included under `MyGame.Actions.Builtin`.
-(`MyGame` being your root namespace or custom defined namespace)
-```cs
+### ⚙ Built-in Godot Actions
+Godot’s default input actions are included under `MyGame.Actions.Builtin.UIAccept`:
+
+```csharp
 public override void _Input(InputEvent @event)
 {
-  if (@event.IsActionPressed(MyGame.Actions.Builtin.UIAccept))
-  {
-    AcceptGift();
-  }
+    if (@event.IsActionPressed(MyGame.Actions.Builtin.UIAccept))
+    {
+        AcceptGift();
+    }
 }
 ```
 
-# Configuration
-## Actions namespace
-### Default
-By default, the actions class is created in the root namespace defined in your `csproj` with
-```xml
- <PropertyGroup>
-  <RootNamespace>MyGame</RootNamespace>
- </PropertyGroup>
-```
-So the actions class is accesible via `MyGame.Actions`.
+---
 
-If there is no root namespace, the namespace will be the name of the assembly(typically your project name.
+## ⚙ Configuration
 
-### Custom
-If you dont want the Actions class to be in the the default namespace, you can override it by adding the `SGActionsNamespace` property in a property group like this:
+### Actions Namespace
+
+#### 📌 Default
+By default, the generated `Actions` class is placed in the root namespace defined in your `.csproj`:
+
 ```xml
- <PropertyGroup>
-  <SGActionsNamespace>MyActions</SGActionsNamespace>
- </PropertyGroup>
+<PropertyGroup>
+    <RootNamespace>MyGame</RootNamespace>
+</PropertyGroup>
 ```
-So the actions class is accesible via `MyActions.Actions`.
+
+This means the class is accessible via:
+```csharp
+MyGame.Actions
+```
+
+If no root namespace is defined, the namespace will default to the assembly name — typically your project name.
+
+#### ✏ Custom Namespace
+If you don’t want the `Actions` class to be in the default namespace, override it by adding the `SGActionsNamespace` property:
+
+```xml
+<PropertyGroup>
+    <SGActionsNamespace>MyActions</SGActionsNamespace>
+</PropertyGroup>
+```
+The class will then be accessible via:
+```csharp
+MyActions.Actions
+```
+
+💡 **Tip**: This is useful if you want to group input actions into a dedicated namespace to avoid cluttering your main game namespace.
+
+---
+
+## 🤝 Contributing
+Pull requests are welcome!  
+If you have ideas for new features, bug fixes, or improvements, feel free to open an issue or PR.
+
+---
+
+## 📜 License
+This project is licensed under the MIT License — see the [LICENSE](LICENSE) file for details.
