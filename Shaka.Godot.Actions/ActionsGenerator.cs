@@ -57,7 +57,7 @@ public sealed class ActionsGenerator : IIncrementalGenerator
 					var actionParts = TextInfo.ToTitleCase(action).Split(' ', '_', '-');
 					var pascalCaseAction = string.Concat(actionParts);
 
-					sb.AppendLine(@$"internal const string {pascalCaseAction} = ""{action}"";");
+					sb.AppendLine(@$"internal static global::Godot.StringName {pascalCaseAction} = ""{action}"";");
 				}
 			}
 			else

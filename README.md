@@ -1,6 +1,6 @@
 # 🎯 Shaka.Godot.OnReady
 
-A **C# Source Generator** for **Godot 4 .NET** that automatically turns your input actions into **compile-time safe constant strings**.  
+A **C# Source Generator** for **Godot 4 .NET** that automatically turns your input actions into **compile-time safe static StringName**.  
 
 ✨ **Benefits**:
 - 🖱 **IDE Autocompletion** for input actions.
@@ -13,7 +13,7 @@ namespace MyGame;
 
 internal static partial class Actions
 {
-    internal const string Quit = "quit";
+    internal static Godot.StringName Quit = "quit";
 }
 ```
 
