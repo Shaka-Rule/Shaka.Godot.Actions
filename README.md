@@ -1,4 +1,4 @@
-# 🎯 Shaka.Godot.OnReady
+# 🎯 Shaka.Godot.Actions
 
 A **C# Source Generator** for **Godot 4 .NET** that automatically turns your input actions into **compile-time safe static StringName**.  
 
